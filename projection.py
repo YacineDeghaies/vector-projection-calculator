@@ -1,41 +1,46 @@
 import matplotlib.pyplot as plt
+from matplotlib.widgets import Button
 import numpy as np
 
-#Create an figure and axes
-fig, ax = plt.subplots(ncols=2)
 
-# ax.plot([start_x, end_x], [start_y, end_y], "b")
+#vectors data
+x1 = int(input("Type coordinate for vector A(x, y):\n x: "))
+y1 = int(input(" y: "))
+x2 = int(input("Type coordinate for vector B(x, y):\n x: "))
+y2 = int(input(" y: "))
+
+#Create a figure and axes
+fig, ax = plt.subplots(figsize = (10,5) )
 
 #Vectors
-
-vec1 = np.array([2, 2])
-vec2 = np.array([6, 3.5])
+vec1 = np.array([x1, y1])
+vec2 = np.array([x2, y2])
 
 #draw Vector 1
-# ax[0].plot([0, vec1[0]], [0, vec1[1]], "b")
-ax[0].quiver(0, 0, 2, 2, angles="xy", scale_units="xy", scale=1, color="black", label="Vector")
-ax[0].quiver(0, 0, 6, 3.5, angles="xy", scale_units="xy", scale=1, color="red", label="Vector")
+ax.quiver(0, 0, vec1[0], vec1[1], angles="xy", scale_units="xy", scale=1, color="red", label="Vector 1")
 
 #draw Vector 2
-# ax[0].plot([0, vec2[0]], [0, vec2[1]], "r")
+ax.quiver(0, 0, vec2[0], vec2[1], angles="xy", color="green", scale_units="xy", scale=1, label="Vector 2")
 
 vec1DotVec2 = np.dot(vec1, vec2)
-# vec2Norm = np.linalg.norm(vec2)
-vec2Norm = np.sqrt(vec2[0]**2 + vec2[1]**2)
-vec1OntoVec2 = (vec1DotVec2 / vec2Norm**2) * vec2
+vec2Norm = np.linalg.norm(vec2) **2
+# vec2Norm = np.sqrt(vec2[0]**2 + vec2[1]**2)
+vec1OntoVec2 = (vec1DotVec2 / vec2Norm) * vec2
 
-# ax[0].plot([0, vec1OntoVec2[0]], [0, vec1OntoVec2[1] ], "g")
-ax[0].quiver(0, 0, vec1OntoVec2[0], vec1OntoVec2[1], angles="xy", scale_units="xy", scale=1, color="green", label="Vector")
+#projected vector
+ax.quiver(0, 0, vec1OntoVec2[0], vec1OntoVec2[1], angles="xy", scale_units="xy", scale=1, color="gray", label="Projected Vector")
+
 # set limits for axes
-ax[0].set_xlim(-1, 8)
-ax[0].set_ylim(-1, 10)
+ax.set_xlim(-1, 8)
+ax.set_ylim(-1, 8)
+
 
 #set Title of axis
-ax[0].set_title("Vector Projection")
-ax[1].set_title("Plot 2")
+ax.set_title("Vector Projection")
 
 # display grid as background
-ax[0].grid(True)
+ax.grid(True)
 
+ax.legend()
 
 plt.show()
